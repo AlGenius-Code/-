@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<link rel="icon" type="image/png" href="favicon.png">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+content="Al-Genius - تصميم صور ويافطات، صناعة فيديوهات، وإنشاء مواقع إلكترونية حسب الطلب.">
+
+<title>Al-Genius | الإبداع يبدأ من فكرتك</title>
+
+<style>
+
+:root{
+    --bg:#07070a;
+    --surface:#0e0e13;
+    --surface2:#14141b;
+    --surface3:#1a1a23;
+    --text:#f7f7fb;
+    --muted:#9999a8;
+    --line:rgba(255,255,255,.09);
+    --accent:#9b6cff;
+    --accent2:#c5a8ff;
+    --accent-dark:#5b35b5;
+    --green:#25D366;
+    --radius:28px;
+    --shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:Arial,Tahoma,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.75;
+    overflow-x:hidden;
+}
+body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+    background:
+      radial-gradient(circle at 12% 10%,rgba(155,108,255,.13),transparent 28%),
+      radial-gradient(circle at 88% 42%,rgba(104,70,190,.09),transparent 25%);
+}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font-family:inherit}
+
+/* dark/light toggle is intentionally always premium dark */
+body.dark{--bg:#030305;--surface:#0a0a0e;--surface2:#111117;--surface3:#17171f}
+body.dark header{background:rgba(7,7,10,.82)}
+body.dark .card,body.dark .price-card,body.dark .review,
+body.dark .faq-item,body.dark .step,body.dark .order-box{
+    background:var(--surface);
+}
+body.dark input,body.dark textarea,body.dark select{
+    background:#0b0b10;color:#fff;border-color:var(--line)
+}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:#050506;color:#fff;display:flex;align-items:center;justify-content:center;z-index:99999;transition:.6s}
+.loader.hide{opacity:0;visibility:hidden}
+.loader-content{text-align:center}
+.loader-logo{
+    font-size:54px;font-weight:900;letter-spacing:-3px;
+    background:linear-gradient(100deg,#fff,#c6a9ff,#7b4ee8);
+    -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.loader-line{width:220px;height:3px;background:#222;margin:24px auto;overflow:hidden;border-radius:10px}
+.loader-line::after{content:"";display:block;width:45%;height:100%;background:var(--accent);animation:loading 1.2s infinite}
+@keyframes loading{0%{transform:translateX(-220%)}100%{transform:translateX(420%)}}
+
+/* TOP BAR */
+.topbar{
+    min-height:36px;padding:7px 6%;
+    display:flex;align-items:center;justify-content:center;gap:30px;
+    background:#030305;color:#aaa;font-size:12px;border-bottom:1px solid var(--line)
+}
+.topbar span:first-child{color:#d8c7ff}
+
+/* HEADER */
+header{
+    position:sticky;top:12px;z-index:5000;
+    width:min(1180px,92%);margin:12px auto 0;
+    min-height:70px;padding:10px 12px 10px 18px;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    background:rgba(14,14,19,.82);backdrop-filter:blur(22px);
+    border:1px solid var(--line);border-radius:22px;
+    box-shadow:0 15px 50px rgba(0,0,0,.22)
+}
+.logo{
+    font-size:25px;font-weight:950;letter-spacing:-1.5px;
+    white-space:nowrap
+}
+.logo::before{
+    content:"A";display:inline-flex;width:35px;height:35px;margin-left:9px;
+    align-items:center;justify-content:center;border-radius:11px;
+    background:linear-gradient(145deg,#cdb7ff,#6940c7);
+    color:#09070f;font-size:20px;vertical-align:middle;
+    box-shadow:0 8px 25px rgba(155,108,255,.28)
+}
+.logo span{font-size:18px}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+    position:relative;padding:9px 12px;color:#bdbdc9;font-size:13px;font-weight:bold;border-radius:12px;
+    transition:.25s
+}
+.nav a:hover{background:#1b1a22;color:#fff}
+.nav a::after{display:none}
+.header-buttons{display:flex;align-items:center;gap:8px}
+.theme-btn{
+    border:1px solid var(--line);background:#17171e;color:#fff;
+    padding:9px 13px;border-radius:14px;cursor:pointer;font-weight:bold;font-size:12px
+}
+.menu-btn{
+    display:none;border:1px solid var(--line);background:#17171e;color:#fff;
+    width:43px;height:43px;border-radius:14px;cursor:pointer
+}
+
+/* CREATOR */
+.creator-box{
+    width:min(1180px,92%);margin:18px auto 0;
+    background:linear-gradient(90deg,rgba(155,108,255,.08),rgba(255,255,255,.025));
+    color:#c7c7d2;text-align:center;padding:9px 15px;
+    border:1px solid var(--line);border-radius:14px
+}
+.creator-box span{display:none}
+.creator-box strong{font-size:12px;letter-spacing:.8px;color:#bfa6f8}
+
+/* HERO */
+.hero{
+    width:min(1180px,92%);margin:0 auto;
+    min-height:680px;padding:85px 0 80px;
+    display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:75px;
+    background:none;position:relative
+}
+.hero::before{
+    content:"01";position:absolute;left:0;top:45px;
+    font-size:12px;color:#555;letter-spacing:3px
+}
+.hero h1{
+    font-size:clamp(52px,7vw,92px);line-height:.98;letter-spacing:-6px;margin:25px 0
+}
+.hero h1 span{display:block}
+.hero-highlight{
+    background:linear-gradient(100deg,#fff 5%,#a879ff 55%,#7043c7);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-decoration:none;position:relative
+}
+.hero-highlight::after{
+    content:"";position:absolute;right:0;bottom:-10px;width:90px;height:5px;border-radius:20px;
+    background:var(--accent);box-shadow:0 0 25px rgba(155,108,255,.7)
+}
+.badge{
+    display:inline-flex;padding:8px 14px;border:1px solid rgba(155,108,255,.28);
+    border-radius:50px;background:rgba(155,108,255,.08);color:#d8c8ff;font-weight:bold;font-size:12px
+}
+.hero-description{max-width:620px;color:var(--muted);font-size:18px;line-height:2}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 22px;border-radius:14px;border:1px solid var(--line);
+    font-weight:900;cursor:pointer;transition:.3s;font-size:14px
+}
+.btn:hover{transform:translateY(-4px);box-shadow:0 15px 35px rgba(0,0,0,.25)}
+.primary{
+    background:linear-gradient(135deg,#a879ff,#6539c5);color:#fff;border-color:transparent;
+    box-shadow:0 10px 35px rgba(117,67,205,.3)
+}
+.outline{background:#111117;color:#fff}
+.hero-note{margin-top:22px;color:#6f6f7c;font-size:12px}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;height:590px;display:flex;align-items:center;justify-content:center}
+.hero-visual::before{
+    content:"";position:absolute;width:430px;height:430px;border-radius:50%;
+    background:radial-gradient(circle,rgba(155,108,255,.24),transparent 67%);
+    filter:blur(5px)
+}
+.hero-image{
+    width:82%;height:500px;object-fit:cover;border-radius:34px;
+    filter:brightness(.72) contrast(1.08);border:1px solid var(--line);
+    box-shadow:var(--shadow);transform:rotate(2deg);transition:.5s;position:relative
+}
+.hero-image:hover{transform:rotate(0) scale(1.025);filter:brightness(.9) contrast(1.05)}
+.floating{
+    position:absolute;background:rgba(18,18,24,.9);color:#fff;padding:15px 18px;
+    border-radius:17px;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.35);
+    backdrop-filter:blur(15px);z-index:2
+}
+.float-top{top:65px;right:0}
+.float-bottom{bottom:55px;left:0}
+.float-number{font-size:28px;font-weight:900;color:#c8afff}
+
+/* STATS */
+.stats{
+    width:min(1180px,92%);margin:0 auto 30px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:none
+}
+.stat{
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    text-align:right;padding:22px 24px;position:relative;overflow:hidden
+}
+.stat::after{
+    content:"";position:absolute;left:-25px;bottom:-35px;width:90px;height:90px;border-radius:50%;
+    background:rgba(155,108,255,.08)
+}
+.stat strong{display:block;font-size:30px;font-weight:950}
+.stat span{color:#777783;font-size:12px}
+
+/* SECTIONS */
+section{width:min(1180px,92%);margin:0 auto;padding:105px 0}
+.section-header{max-width:750px;margin:0 0 48px;text-align:right}
+.section-label{font-weight:900;letter-spacing:1px;color:#b796ff;font-size:12px}
+.section-header h2{font-size:clamp(38px,5vw,62px);line-height:1.08;letter-spacing:-3px;margin:13px 0}
+.section-header p{color:var(--muted);font-size:16px}
+
+/* SERVICES */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{
+    background:var(--surface);border:1px solid var(--line);border-radius:25px;
+    overflow:hidden;box-shadow:none;transition:.4s;position:relative
+}
+.card:hover{transform:translateY(-9px);border-color:rgba(155,108,255,.35);box-shadow:0 25px 60px rgba(0,0,0,.28)}
+.card-image{height:235px;overflow:hidden;position:relative}
+.card-image::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,5,8,.55),transparent 55%)}
+.card-image img{width:100%;height:100%;object-fit:cover;filter:saturate(.65) contrast(1.05);transition:.5s}
+.card:hover img{transform:scale(1.07);filter:saturate(.9)}
+.card-body{padding:25px}
+.card-icon{
+    width:50px;height:50px;display:flex;align-items:center;justify-content:center;
+    background:#1a1722;color:#d1bdff;border:1px solid rgba(155,108,255,.18);
+    border-radius:15px;font-size:23px;margin-top:-48px;position:relative;z-index:2
+}
+.card h3{font-size:22px;margin:18px 0 8px}
+.card p{color:var(--muted);font-size:14px}
+.card-link{display:inline-block;margin-top:20px;color:#c2a6ff;font-weight:900;font-size:13px}
+
+/* LIGHT / FEATURE */
+.light{background:transparent}
+.feature{
+    display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center;
+    padding:45px;border:1px solid var(--line);border-radius:35px;background:linear-gradient(145deg,#0d0d12,#0a0a0e)
+}
+.feature-image{width:100%;height:490px;object-fit:cover;border-radius:25px;filter:saturate(.55);border:1px solid var(--line)}
+.feature-content h2{font-size:clamp(38px,5vw,60px);line-height:1.05;letter-spacing:-3px;margin:15px 0}
+.feature-content p{color:var(--muted);font-size:16px}
+.features-list{list-style:none;margin-top:25px}
+.features-list li{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-weight:bold;font-size:14px}
+.check{width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#20172f;color:#cdb6ff;border-radius:10px}
+
+/* PORTFOLIO */
+.portfolio{
+    width:100%;max-width:none;padding-left:4%;padding-right:4%;
+    background:#050507;border-top:1px solid var(--line);border-bottom:1px solid var(--line)
+}
+.portfolio .section-header{width:min(1180px,92%);margin:0 auto 42px}
+.portfolio .section-header p{color:#777783}
+.filters{display:flex;justify-content:flex-start;flex-wrap:wrap;gap:8px;width:min(1180px,92%);margin:0 auto 25px}
+.filter{padding:9px 17px;border:1px solid #27262e;background:#0c0c11;color:#aaa;border-radius:12px;cursor:pointer;font-size:12px}
+.filter.active,.filter:hover{background:#c2a7ff;color:#09070f;border-color:#c2a7ff}
+.gallery{
+    width:min(1180px,92%);margin:auto;
+    display:grid;grid-template-columns:1.35fr .9fr .9fr;grid-auto-rows:270px;gap:12px
+}
+.gallery-item{position:relative;height:auto;overflow:hidden;border-radius:20px;border:1px solid var(--line)}
+.gallery-item:nth-child(1){grid-row:span 2}
+.gallery-item:nth-child(4){grid-column:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.5s;filter:saturate(.65)}
+.gallery-item:hover img{transform:scale(1.08);filter:saturate(1)}
+.gallery-overlay{right:0;left:0;bottom:0;padding:22px;background:linear-gradient(transparent,rgba(0,0,0,.9));font-size:16px;font-weight:bold}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{
+    padding:28px;background:var(--surface);border:1px solid var(--line);border-radius:23px;
+    position:relative;overflow:hidden
+}
+.step-number{font-size:48px;font-weight:950;color:#2a2633;line-height:1}
+.step h3{margin:18px 0 7px;font-size:20px}
+.step p{color:var(--muted);font-size:13px}
+.step::before{content:"";position:absolute;right:0;top:0;width:55px;height:3px;background:var(--accent)}
+
+/* PRICING */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;align-items:stretch}
+.price-card{
+    padding:32px;background:var(--surface);border:1px solid var(--line);border-radius:25px;position:relative
+}
+.price-card.featured{
+    background:linear-gradient(150deg,#191122,#0e0c13);border-color:rgba(155,108,255,.42);transform:translateY(-10px);
+    box-shadow:0 25px 70px rgba(0,0,0,.35)
+}
+.popular{position:absolute;top:18px;left:18px;padding:6px 11px;background:#bda0ff;color:#100c17;border-radius:10px;font-size:10px;font-weight:900}
+.price{font-size:34px;font-weight:950;margin:18px 0}
+.price-card p{color:var(--muted);font-size:13px}
+.price-card ul{list-style:none;margin:22px 0}
+.price-card li{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;color:#c2c2cc}
+
+/* REVIEWS */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.review{padding:27px;background:var(--surface);border:1px solid var(--line);border-radius:23px}
+.stars{font-size:17px;letter-spacing:2px}
+.review p{color:var(--muted);margin:17px 0;font-size:14px}
+.review-name{font-weight:900;color:#c5b0ef;font-size:13px}
+
+/* FAQ */
+.faq{max-width:900px;margin:auto}
+.faq-item{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:9px;overflow:hidden}
+.faq-question{width:100%;padding:20px;border:0;background:transparent;color:var(--text);text-align:right;font-size:15px;font-weight:bold;cursor:pointer;display:flex;justify-content:space-between}
+.faq-answer{display:none;padding:0 20px 20px;color:var(--muted);font-size:13px}
+.faq-item.open .faq-answer{display:block}
+
+/* ORDER */
+.order{width:100%;max-width:none;padding-left:4%;padding-right:4%;background:#050507}
+.order .section-header,.order-box{width:min(1000px,92%);margin-left:auto;margin-right:auto}
+.order-box{padding:42px;background:var(--surface);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-weight:bold;font-size:13px;color:#cfcfd7}
+input,select,textarea{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:13px;outline:none;font-size:14px;background:#09090d;color:#fff}
+input:focus,select:focus,textarea:focus{border-color:rgba(155,108,255,.65);box-shadow:0 0 0 3px rgba(155,108,255,.08)}
+textarea{min-height:160px;resize:vertical}
+.submit{margin-top:18px;padding:15px 25px;border:0;border-radius:13px;background:linear-gradient(135deg,#a879ff,#6539c5);color:#fff;font-weight:900;cursor:pointer}
+
+/* CONTACT */
+.contact{width:100%;max-width:none;text-align:center;background:linear-gradient(135deg,#120c1d,#060608);border-top:1px solid var(--line)}
+.contact h2{font-size:clamp(48px,8vw,92px);line-height:.95;letter-spacing:-5px}
+.contact p{color:#858590;font-size:17px;margin:18px 0}
+.contact-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:25px}
+.contact-btn{padding:14px 25px;border-radius:13px;background:#fff;color:#09070c;font-weight:bold;font-size:13px}
+
+/* FOOTER */
+footer{background:#030305;color:#777;text-align:center;padding:55px 7%;border-top:1px solid var(--line)}
+.footer-logo{color:#fff;font-size:32px;font-weight:950;letter-spacing:-2px}
+.socials{display:flex;justify-content:center;gap:9px;margin:22px 0}
+.social{width:43px;height:43px;border:1px solid #292830;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#bbb}
+.social:hover{background:#18151f;color:#fff;border-color:#594181}
+footer strong{color:#c5a8ff}
+footer small{display:block;margin-top:10px;color:#4f4f59}
+
+/* FLOATING */
+.whatsapp{
+    position:fixed;bottom:22px;left:22px;width:58px;height:58px;border-radius:17px;
+    background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:27px;z-index:9999;box-shadow:0 12px 35px rgba(37,211,102,.2);transition:.3s
+}
+.whatsapp:hover{transform:translateY(-5px) scale(1.04)}
+.top{
+    position:fixed;right:22px;bottom:22px;width:48px;height:48px;border:1px solid var(--line);
+    border-radius:14px;background:#17171d;color:#fff;cursor:pointer;display:none;z-index:9998
+}
+
+/* MOBILE */
+@media(max-width:1100px){
+    .nav{display:none}
+    .menu-btn{display:block}
+    .hero{grid-template-columns:1fr;gap:35px;padding-top:65px}
+    .hero-visual{height:500px}
+    .hero-image{height:450px}
+    .services,.pricing{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .reviews{grid-template-columns:1fr 1fr}
+    .price-card.featured{transform:none}
+}
+@media(max-width:700px){
+    .topbar{gap:10px;font-size:9px;white-space:nowrap}
+    header{top:7px;width:94%;margin-top:7px}
+    .logo{font-size:20px}
+    .logo::before{width:31px;height:31px;font-size:17px}
+    .theme-btn{font-size:10px;padding:8px 10px}
+    .creator-box{margin-top:12px}
+    section{padding:72px 0}
+    .hero{padding:60px 0 55px}
+    .hero h1{font-size:51px;letter-spacing:-4px}
+    .hero-description{font-size:16px}
+    .hero-visual{height:430px}
+    .hero-image{width:92%;height:370px}
+    .float-top{right:-2px;top:35px}.float-bottom{left:-2px;bottom:25px}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat{padding:18px}
+    .stat strong{font-size:25px}
+    .services,.gallery,.steps,.pricing,.reviews{grid-template-columns:1fr}
+    .feature{grid-template-columns:1fr;padding:22px;gap:35px}
+    .feature-image{height:330px}
+    .gallery{display:grid;grid-auto-rows:260px}
+    .gallery-item:nth-child(1),.gallery-item:nth-child(4){grid-row:auto;grid-column:auto}
+    .order{padding-left:0;padding-right:0}
+    .form-grid{grid-template-columns:1fr}
+    .field.full{grid-column:auto}
+    .order-box{padding:23px}
+    .contact h2{font-size:55px}
+    .contact p{font-size:14px}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+    <div class="loader-content">
+        <div class="loader-logo">Al-Genius ✦</div>
+        <div class="loader-line"></div>
+        <div>جاري تحميل الإبداع...</div>
+    </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <span>✨ تصميم حسب الطلب</span>
+    <span>🎨 صور ويافطات</span>
+    <span>🌐 مواقع إلكترونية</span>
+    <span>🚀 أفكار إبداعية</span>
+</div>
+
+<!-- HEADER -->
+<header>
+
+    <div class="logo">
+        Al-Genius ✦
+    </div>
+
+    <nav class="nav">
+        <a href="#home">الرئيسية</a>
+        <a href="#services">الخدمات</a>
+        <a href="#portfolio">أعمالنا</a>
+        <a href="#process">طريقة العمل</a>
+        <a href="#pricing">الباقات</a>
+        <a href="#order">اطلب الآن</a>
+        <a href="#contact">تواصل</a>
+    </nav>
+
+    <div class="header-buttons">
+
+        <button class="theme-btn" onclick="toggleTheme()">
+            🌙 الوضع الداكن
+        </button>
+
+        <button class="menu-btn" onclick="mobileMenu()">
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+<!-- CREATOR -->
+<div class="creator-box">
+    <strong>Youssef Ahmed</strong>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div>
+
+        <div class="badge">
+            ✨ مرحبًا بك في Al-Genius
+        </div>
+
+        <h1>
+            فكرتك...
+            <span>نصنع منها</span>
+            <span class="hero-highlight">إبداعًا.</span>
+        </h1>
+
+        <p class="hero-description">
+            في Al-Genius نحول أفكارك إلى تصميمات احترافية،
+            يافطات جذابة، فيديوهات إبداعية ومواقع إلكترونية
+            مصممة خصيصًا حسب طلبك.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#services" class="btn primary">
+                🚀 اكتشف خدماتنا
+            </a>
+
+            <a href="#order" class="btn outline">
+                📝 اطلب مشروعك
+            </a>
+
+        </div>
+
+        <div class="hero-note">
+            ⭐ الجودة تبدأ بفكرة جيدة... ونحن نساعدك في تطويرها.
+        </div>
+
+    </div>
+
+    <div class="hero-visual">
+
+        <img
+            class="hero-image"
+            src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=90"
+            alt="Al-Genius">
+
+        <div class="floating float-top">
+            🎨
+            <br>
+            <strong>تصميم احترافي</strong>
+        </div>
+
+        <div class="floating float-bottom">
+            <div class="float-number">3+</div>
+            <small>خدمات إبداعية</small>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STATS -->
+<div class="stats">
+
+    <div class="stat">
+        <strong>100%</strong>
+        <span>حسب الطلب</span>
+    </div>
+
+    <div class="stat">
+        <strong>3+</strong>
+        <span>خدمات</span>
+    </div>
+
+    <div class="stat">
+        <strong>24/7</strong>
+        <span>استقبال الطلبات</span>
+    </div>
+
+    <div class="stat">
+        <strong>∞</strong>
+        <span>أفكار جديدة</span>
+    </div>
+
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+
+    <div class="section-header">
+        <div class="section-label">✦ خدماتنا</div>
+
+        <h2>كل ما تحتاجه لفكرتك</h2>
+
+        <p>خدمات إبداعية متعددة في مكان واحد.</p>
+    </div>
+
+    <div class="services">
+
+        <article class="card">
+
+            <div class="card-image">
+                <img
+                    src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1000&q=90"
+                    alt="Graphic Design">
+            </div>
+
+            <div class="card-body">
+
+                <div class="card-icon">🎨</div>
+
+                <h3>تصميم الصور واليافطات</h3>
+
+                <p>
+                    تصميم بوستات وإعلانات ويافطات وشعارات
+                    وتصميمات للسوشيال ميديا.
+                </p>
+
+                <a href="#order" class="card-link">
+                    اطلب التصميم ←
+                </a>
+
+            </div>
+
+        </article>
+
+        <article class="card">
+
+            <div class="card-image">
+                <img
+                    src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1000&q=90"
+                    alt="Video">
+            </div>
+
+            <div class="card-body">
+
+                <div class="card-icon">🎬</div>
+
+                <h3>صناعة الفيديوهات</h3>
+
+                <p>
+                    فيديوهات إعلانية ومحتوى مرئي جذاب
+                    للسوشيال ميديا.
+                </p>
+
+                <a href="#order" class="card-link">
+                    اطلب الفيديو ←
+                </a>
+
+            </div>
+
+        </article>
+
+        <article class="card">
+
+            <div class="card-image">
+                <img
+                    src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1000&q=90"
+                    alt="Website">
+            </div>
+
+            <div class="card-body">
+
+                <div class="card-icon">🌐</div>
+
+                <h3>إنشاء المواقع</h3>
+
+                <p>
+                    مواقع حديثة وسريعة ومتجاوبة تعمل
+                    على الكمبيوتر والموبايل.
+                </p>
+
+                <a href="#order" class="card-link">
+                    اطلب موقعك ←
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+<!-- WHY -->
+<section class="light">
+
+    <div class="feature">
+
+        <div>
+            <img
+                class="feature-image"
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=90"
+                alt="Creative Team">
+        </div>
+
+        <div class="feature-content">
+
+            <div class="section-label">
+                ✦ لماذا Al-Genius؟
+            </div>
+
+            <h2>
+                مش مجرد تصميم...
+                <br>
+                دي فكرتك بشكل جديد.
+            </h2>
+
+            <p>
+                هدفنا إننا نفهم فكرتك أولًا،
+                وبعدها نحولها إلى شيء بصري واضح
+                وجذاب ومناسب لاحتياجاتك.
+            </p>
+
+            <ul class="features-list">
+
+                <li>
+                    <span class="check">✓</span>
+                    تصميم حسب طلبك
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    أفكار عصرية وجذابة
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    تصميم متجاوب مع الموبايل
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    تعديلات حسب احتياجك
+                </li>
+
+                <li>
+                    <span class="check">✓</span>
+                    تسليم جاهز للاستخدام
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="portfolio">
+
+    <div class="section-header">
+
+        <div class="section-label">
+            ✦ PORTFOLIO
+        </div>
+
+        <h2>معرض الأعمال</h2>
+
+        <p>
+            بعض الأمثلة على أنواع المشاريع التي يمكن تنفيذها.
+        </p>
+
+    </div>
+
+    <div class="filters">
+
+        <button class="filter active"
+        onclick="filterGallery('all',this)">
+            الكل
+        </button>
+
+        <button class="filter"
+        onclick="filterGallery('design',this)">
+            التصميم
+        </button>
+
+        <button class="filter"
+        onclick="filterGallery('web',this)">
+            المواقع
+        </button>
+
+        <button class="filter"
+        onclick="filterGallery('branding',this)">
+            الهوية
+        </button>
+
+    </div>
+
+    <div class="gallery">
+
+        <div class="gallery-item design">
+            <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=90">
+            <div class="gallery-overlay">🎨 تصميم إعلاني</div>
+        </div>
+
+        <div class="gallery-item branding">
+            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=90">
+            <div class="gallery-overlay">🖌️ هوية بصرية</div>
+        </div>
+
+        <div class="gallery-item web">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=90">
+            <div class="gallery-overlay">💻 تصميم موقع</div>
+        </div>
+
+        <div class="gallery-item design">
+            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1000&q=90">
+            <div class="gallery-overlay">📢 بوستر إعلاني</div>
+        </div>
+
+        <div class="gallery-item web">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=90">
+            <div class="gallery-overlay">🌐 موقع إلكتروني</div>
+        </div>
+
+        <div class="gallery-item branding">
+            <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1000&q=90">
+            <div class="gallery-overlay">✨ تصميم إبداعي</div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+
+    <div class="section-header">
+
+        <div class="section-label">
+            ✦ طريقة العمل
+        </div>
+
+        <h2>من الفكرة إلى النتيجة</h2>
+
+        <p>خطوات بسيطة للحصول على مشروعك.</p>
+
+    </div>
+
+    <div class="steps">
+
+        <div class="step">
+            <div class="step-number">01</div>
+            <h3>أرسل فكرتك</h3>
+            <p>اشرح لنا ما الذي تريد تنفيذه.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">02</div>
+            <h3>نجهز التصميم</h3>
+            <p>نحول فكرتك إلى تصور احترافي.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">03</div>
+            <h3>المراجعة</h3>
+            <p>نراجع التفاصيل وننفذ التعديلات.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">04</div>
+            <h3>التسليم</h3>
+            <p>تستلم مشروعك جاهزًا للاستخدام.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="light">
+
+    <div class="section-header">
+
+        <div class="section-label">
+            💎 الباقات
+        </div>
+
+        <h2>خدمات تناسب احتياجك</h2>
+
+        <p>السعر النهائي يحدد حسب تفاصيل المشروع.</p>
+
+    </div>
+
+    <div class="pricing">
+
+        <div class="price-card">
+
+            <h3>🎨 التصميم</h3>
+
+            <div class="price">حسب الطلب</div>
+
+            <p>مناسب للصور والبوستات واليافطات.</p>
+
+            <ul>
+                <li>✓ تصميم احترافي</li>
+                <li>✓ مقاسات مختلفة</li>
+                <li>✓ تعديلات</li>
+                <li>✓ ملف جاهز للنشر</li>
+            </ul>
+
+            <a href="#order" class="btn primary">
+                اطلب الآن
+            </a>
+
+        </div>
+
+        <div class="price-card featured">
+
+            <div class="popular">
+                الأكثر طلبًا
+            </div>
+
+            <h3>🚀 المشروع الكامل</h3>
+
+            <div class="price">حسب الطلب</div>
+
+            <p>تصميم + فيديو + موقع حسب احتياجك.</p>
+
+            <ul>
+                <li>✓ تخطيط المشروع</li>
+                <li>✓ تصميم احترافي</li>
+                <li>✓ محتوى مرئي</li>
+                <li>✓ موقع حسب الطلب</li>
+            </ul>
+
+            <a href="#order" class="btn outline">
+                ابدأ مشروعك
+            </a>
+
+        </div>
+
+        <div class="price-card">
+
+            <h3>🌐 الموقع</h3>
+
+            <div class="price">حسب الطلب</div>
+
+            <p>موقع حديث مناسب لنشاطك.</p>
+
+            <ul>
+                <li>✓ تصميم حديث</li>
+                <li>✓ متجاوب مع الهاتف</li>
+                <li>✓ أقسام حسب الطلب</li>
+                <li>✓ جاهز للنشر</li>
+            </ul>
+
+            <a href="#order" class="btn primary">
+                اطلب موقعك
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- REVIEWS -->
+<section>
+
+    <div class="section-header">
+
+        <div class="section-label">
+            ⭐ آراء العملاء
+        </div>
+
+        <h2>تجربة العميل تهمنا</h2>
+
+    </div>
+
+    <div class="reviews">
+
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>تصميم جميل جدًا وفكرة ممتازة والتعديلات كانت سهلة.</p>
+            <div class="review-name">عميل Al-Genius</div>
+        </div>
+
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>الموقع شكله احترافي وسهل الاستخدام على الموبايل.</p>
+            <div class="review-name">عميل Al-Genius</div>
+        </div>
+
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>الخدمة كانت مناسبة جدًا للفكرة التي طلبتها.</p>
+            <div class="review-name">عميل Al-Genius</div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FAQ -->
+<section class="light">
+
+    <div class="section-header">
+
+        <div class="section-label">❓ FAQ</div>
+
+        <h2>الأسئلة الشائعة</h2>
+
+    </div>
+
+    <div class="faq">
+
+        <div class="faq-item">
+
+            <button class="faq-question"
+            onclick="toggleFAQ(this)">
+                <span>هل يمكن تنفيذ فكرة خاصة بي؟</span>
+                <b>＋</b>
+            </button>
+
+            <div class="faq-answer">
+                نعم، يمكنك إرسال فكرتك وسنحدد معك التفاصيل المطلوبة.
+            </div>
+
+        </div>
+
+        <div class="faq-item">
+
+            <button class="faq-question"
+            onclick="toggleFAQ(this)">
+                <span>هل المواقع تعمل على الهاتف؟</span>
+                <b>＋</b>
+            </button>
+
+            <div class="faq-answer">
+                نعم، يمكن تصميم الموقع ليعمل على الكمبيوتر والتابلت والموبايل.
+            </div>
+
+        </div>
+
+        <div class="faq-item">
+
+            <button class="faq-question"
+            onclick="toggleFAQ(this)">
+                <span>هل يمكن تعديل التصميم؟</span>
+                <b>＋</b>
+            </button>
+
+            <div class="faq-answer">
+                نعم، يمكن إجراء التعديلات المطلوبة حسب طبيعة المشروع.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ORDER -->
+<section id="order" class="order">
+
+    <div class="section-header">
+
+        <div class="section-label">📝 اطلب مشروعك</div>
+
+        <h2>احكي لنا عن فكرتك</h2>
+
+        <p>
+            املأ البيانات وسيتم إرسال الطلب عبر واتساب.
+        </p>
+
+    </div>
+
+    <div class="order-box">
+
+        <form onsubmit="sendOrder(event)">
+
+            <div class="form-grid">
+
+                <div class="field">
+
+                    <label>الاسم</label>
+
+                    <input
+                        id="name"
+                        type="text"
+                        required
+                        placeholder="اكتب اسمك">
+
+                </div>
+
+                <div class="field">
+
+                    <label>نوع الخدمة</label>
+
+                    <select id="service">
+
+                        <option>تصميم صور</option>
+                        <option>تصميم يافطة</option>
+                        <option>صناعة فيديو</option>
+                        <option>إنشاء موقع</option>
+                        <option>مشروع كامل</option>
+                        <option>خدمة أخرى</option>
+
+                    </select>
+
+                </div>
+
+                <div class="field full">
+
+                    <label>تفاصيل المشروع</label>
+
+                    <textarea
+                        id="details"
+                        required
+                        placeholder="اكتب تفاصيل فكرتك هنا..."></textarea>
+
+                </div>
+
+            </div>
+
+            <button type="submit" class="submit">
+                💬 إرسال الطلب عبر واتساب
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+
+    <h2>جاهز تبدأ؟</h2>
+
+    <p>
+        احكي لنا فكرتك ودع Al-Genius تبدأ الإبداع.
+    </p>
+
+    <div class="contact-buttons">
+
+        <a
+            href="https://wa.me/201012747531"
+            target="_blank"
+            class="contact-btn">
+            💬 واتساب
+        </a>
+
+        <a
+            href="tel:01012747531"
+            class="contact-btn">
+            📞 01012747531
+        </a>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-logo">
+        Al-Genius ✦
+    </div>
+
+    <p>
+        Design • Graphics • Websites
+    </p>
+
+    <div class="socials">
+
+        <a href="#home" class="social">⌂</a>
+
+        <a
+            href="https://wa.me/201012747531"
+            target="_blank"
+            class="social">
+            💬
+        </a>
+
+        <a href="#portfolio" class="social">★</a>
+
+    </div>
+
+    <p>
+        Prepared By: <strong>Youssef Ahmed</strong>
+    </p>
+
+    <small>
+        © 2026 Al-Genius — جميع الحقوق محفوظة
+    </small>
+
+</footer>
+
+<!-- WHATSAPP -->
+<a
+    href="https://wa.me/201012747531"
+    target="_blank"
+    class="whatsapp"
+    title="تواصل معنا عبر واتساب">
+    💬
+</a>
+
+<!-- TOP BUTTON -->
+<button
+    id="topBtn"
+    class="top"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    ↑
+</button>
+
+<script>
+
+/* LOADER */
+
+window.addEventListener("load",function(){
+
+    setTimeout(function(){
+
+        document
+        .getElementById("loader")
+        .classList
+        .add("hide");
+
+    },700);
+
+});
+
+
+/* DARK MODE */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("dark");
+
+    const button =
+    document.querySelector(".theme-btn");
+
+    if(document.body.classList.contains("dark")){
+
+        button.innerHTML="☀️ الوضع الفاتح";
+
+        localStorage.setItem(
+            "Al-GeniusTheme",
+            "dark"
+        );
+
+    }else{
+
+        button.innerHTML="🌙 الوضع الداكن";
+
+        localStorage.setItem(
+            "Al-GeniusTheme",
+            "light"
+        );
+
+    }
+
+}
+
+
+/* LOAD THEME */
+
+if(
+    localStorage.getItem("Al-GeniusTheme")
+    ===
+    "dark"
+){
+
+    document.body.classList.add("dark");
+
+    document.querySelector(".theme-btn")
+    .innerHTML="☀️ الوضع الفاتح";
+
+}
+
+
+/* GALLERY */
+
+function filterGallery(category,button){
+
+    document
+    .querySelectorAll(".filter")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+    document
+    .querySelectorAll(".gallery-item")
+    .forEach(function(item){
+
+        if(
+            category==="all" ||
+            item.classList.contains(category)
+        ){
+
+            item.style.display="block";
+
+        }else{
+
+            item.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* FAQ */
+
+function toggleFAQ(button){
+
+    const item=button.parentElement;
+
+    item.classList.toggle("open");
+
+    const icon=button.querySelector("b");
+
+    if(item.classList.contains("open")){
+
+        icon.textContent="−";
+
+    }else{
+
+        icon.textContent="＋";
+
+    }
+
+}
+
+
+/* WHATSAPP ORDER */
+
+function sendOrder(event){
+
+    event.preventDefault();
+
+    const name =
+    document.getElementById("name").value;
+
+    const service =
+    document.getElementById("service").value;
+
+    const details =
+    document.getElementById("details").value;
+
+    const message =
+    "مرحبًا Al-Genius 👋\n\n" +
+    "الاسم: " + name +
+    "\nالخدمة: " + service +
+    "\nتفاصيل المشروع: " + details;
+
+    const whatsappURL =
+    "https://wa.me/201012747531?text=" +
+    encodeURIComponent(message);
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+/* TOP BUTTON */
+
+window.addEventListener("scroll",function(){
+
+    const button =
+    document.getElementById("topBtn");
+
+    if(window.scrollY>500){
+
+        button.style.display="block";
+
+    }else{
+
+        button.style.display="none";
+
+    }
+
+});
+
+
+/* MOBILE MENU */
+
+function mobileMenu(){
+
+    const nav =
+    document.querySelector(".nav");
+
+    if(nav.style.display==="flex"){
+
+        nav.style.display="none";
+
+    }else{
+
+        nav.style.display="flex";
+
+        nav.style.flexDirection="column";
+
+        nav.style.position="absolute";
+
+        nav.style.top="78px";
+
+        nav.style.right="0";
+
+        nav.style.left="0";
+
+        nav.style.padding="25px";
+
+        nav.style.background="var(--white)";
+
+        nav.style.borderBottom=
+        "1px solid var(--border)";
+
+    }
+
+}
+
+
+/* SMOOTH NAVIGATION */
+
+document
+.querySelectorAll('a[href^="#"]')
+.forEach(function(link){
+
+    link.addEventListener("click",function(){
+
+        const target =
+        document.querySelector(
+            this.getAttribute("href")
+        );
+
+        if(target){
+
+            target.scrollIntoView({
+                behavior:"smooth"
+            });
+
+        }
+
+    });
+
+});
+
+
+console.log(
+    "Al-Genius website is working successfully!"
+);
+
+</script>
+
+</body>
+</html>
