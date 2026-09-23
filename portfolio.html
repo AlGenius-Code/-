@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title data-ar="الأعمال | Al-Genius" data-en="Portfolio | Al-Genius">الأعمال | Al-Genius</title>
+
+    <meta name="description" content="معرض أعمال Al-Genius في التصميم والبرمجة والتسويق والدعم الرقمي.">
+    <meta name="author" content="Youssef Ahmed">
+    <meta name="theme-color" content="#07070b">
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="الأعمال | Al-Genius">
+    <meta property="og:description" content="شاهد نماذج من أعمال Al-Genius في المواقع والتصميم والمحتوى والتجارب الرقمية.">
+    <meta property="og:site_name" content="Al-Genius">
+
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <style>
+        /* =========================================================
+           تعديلات تصغير الكروت واستجابة الشبكة (Compact Cards Style)
+        ========================================================= */
+        
+        /* 1. زيادة عدد الأعمدة وتقليل الفجوات لتصغير حجم كل كارت */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        /* 2. تصغير حجم الكارت نفسه والإنحناء والـ Padding */
+        .portfolio-card {
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* 3. تصغير ارتفاع الصورة داخل الكارت */
+        .portfolio-image {
+            height: 135px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 4. تصغير المحتوى النصي الداخلي والخطوط */
+        .portfolio-content {
+            padding: 12px 14px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-content h3 {
+            font-size: 0.95rem;
+            margin: 6px 0 4px 0;
+            line-height: 1.3;
+        }
+
+        .portfolio-content p {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .project-number {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND EFFECTS -->
+    <div class="bg-grid"></div>
+    <div class="cursor-glow"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+
+    <!-- HEADER -->
+    <header class="site-header header">
+        <div class="container header-inner">
+
+                        <a href="index.html" class="logo" aria-label="Al-Genius">
+                <img src="logo.png" alt="Al-Genius" class="site-logo">
+            </a>
+
+            <nav class="nav" aria-label="Main navigation">
+                <a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+                <a href="services.html" data-ar="الخدمات" data-en="Services">الخدمات</a>
+                <a href="portfolio.html" class="active" data-ar="الأعمال" data-en="Portfolio">الأعمال</a>
+                <a href="prices.html" data-ar="الأسعار" data-en="Pricing">الأسعار</a>
+                <a href="about.html" data-ar="عن الشركة" data-en="About">عن الشركة</a>
+                <a href="contact.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="language-toggle" id="languageBtn" type="button" aria-label="تغيير اللغة">EN</button>
+                <button class="theme-toggle-btn" id="themeBtn" type="button" aria-label="تغيير المظهر">☾</button>
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="القائمة">☰</button>
+            </div>
+
+        </div>
+
+        <div class="container mobile-menu" id="mobileMenu">
+            <a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a href="services.html" data-ar="الخدمات" data-en="Services">الخدمات</a>
+            <a href="portfolio.html" class="active" data-ar="الأعمال" data-en="Portfolio">الأعمال</a>
+            <a href="prices.html" data-ar="الأسعار" data-en="Pricing">الأسعار</a>
+            <a href="about.html" data-ar="عن الشركة" data-en="About">عن الشركة</a>
+            <a href="contact.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="portfolio-hero page-hero">
+            <div class="container">
+                <div class="hero-badge badge reveal" data-ar="✦ أعمال مختارة" data-en="✦ Selected Work">
+                    ✦ أعمال مختارة
+                </div>
+
+                <h1 class="portfolio-title reveal" data-ar="معرض أعمالنا" data-en="Our Portfolio">
+                    معرض أعمالنا
+                </h1>
+
+                <p class="portfolio-description reveal" data-ar="نماذج مختارة من الأعمال والخدمات الرقمية التي نلبي بها تطلعات مشاريعك." data-en="A selection of projects and prototypes showing how we turn ideas into digital experiences.">
+                    نماذج مختارة من الأعمال والخدمات الرقمية التي نلبي بها تطلعات مشاريعك.
+                </p>
+
+                <div class="hero-line reveal"></div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION WITH FILTER -->
+        <section class="portfolio-section section">
+            <div class="container">
+
+                <!-- Filter Controls -->
+                <div class="filter reveal">
+                    <button class="active" data-filter="all" data-ar="الكل" data-en="All">الكل</button>
+                    <button data-filter="design" data-ar="التصميم والجرافيك" data-en="Design">التصميم والجرافيك</button>
+                    <button data-filter="web" data-ar="المواقع والبرمجة" data-en="Web & Dev">المواقع والبرمجة</button>
+                    <button data-filter="marketing" data-ar="الدعم والتسويق" data-en="Support & Marketing">الدعم والتسويق</button>
+                </div>
+
+                <!-- Projects Grid (16 Cards) -->
+                <div class="portfolio-grid" id="portfolioGrid">
+
+                    <!-- Project 01 -->
+                    <article class="portfolio-card card reveal" data-category="design">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&auto=format&fit=crop&q=80" alt="تصميم الهوية البصرية" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="هوية بصرية" data-en="Brand Identity">01</span>
+                            <h3 data-ar="تصميم الهوية البصرية" data-en="Visual Identity Design">تصميم الهوية البصرية</h3>
+                            <p data-ar="ابتكار الشعارات والدليل التجاري الكامل للمؤسسات لترسيخ علامة تجارية قوية." data-en="Creating logos and complete brand guidelines to establish a unique identity.">
+                                ابتكار الشعارات والدليل التجاري الكامل للمؤسسات لترسيخ علامة تجارية قوية.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 02 -->
+                    <article class="portfolio-card card reveal" data-category="design">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&auto=format&fit=crop&q=80" alt="تصميم واجهات UI UX" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="UI/UX" data-en="UI/UX">02</span>
+                            <h3 data-ar="تصميم واجهات UI/UX" data-en="UI/UX Design">تصميم واجهات UI/UX</h3>
+                            <p data-ar="تخطيط واجهات تفاعلية وسلسة لزيادة تحويل الزوار وتحسين تجربة الاستخدام." data-en="Designing interactive interfaces to enhance user experience and conversions.">
+                                تخطيط واجهات تفاعلية وسلسة لزيادة تحويل الزوار وتحسين تجربة الاستخدام.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 03 -->
+                    <article class="portfolio-card card reveal" data-category="design">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&auto=format&fit=crop&q=80" alt="تصاميم السوشيال ميديا" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="سوشيال ميديا" data-en="Social Media">03</span>
+                            <h3 data-ar="تصاميم السوشيال ميديا" data-en="Social Media Designs">تصاميم السوشيال ميديا</h3>
+                            <p data-ar="إعداد قوالب إعلانية مبتكرة تعزز تفاعل الجمهور وتبرز خدماتك بحرفية." data-en="Creating creative social media posts and templates to boost audience engagement.">
+                                إعداد قوالب إعلانية مبتكرة تعزز تفاعل الجمهور وتبرز خدماتك بحرفية.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 04 -->
+                    <article class="portfolio-card card reveal" data-category="design">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&auto=format&fit=crop&q=80" alt="الحملات الإعلانية" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="إعلانات" data-en="Ad Campaigns">04</span>
+                            <h3 data-ar="تصميم الحملات الإعلانية" data-en="Ad Banner Design">تصميم الحملات الإعلانية</h3>
+                            <p data-ar="تصميم بنرات ومواد تسويقية احترافية جذابة تناسب الحملات المأجورة." data-en="Designing eye-catching banners and creative assets for paid ad campaigns.">
+                                تصميم بنرات ومواد تسويقية احترافية جذابة تناسب الحملات المأجورة.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 05 -->
+                    <article class="portfolio-card card reveal" data-category="web">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&auto=format&fit=crop&q=80" alt="تطوير وتصميم المواقع" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="موقع ويب" data-en="Website">05</span>
+                            <h3 data-ar="تطوير وتصميم المواقع" data-en="Web Development">تطوير وتصميم المواقع</h3>
+                            <p data-ar="بناء مواقع ويب حديثة وسريعة متوافقة مع كافة الشاشات بأحدث أطر العمل." data-en="Building modern, responsive websites using the latest web technologies.">
+                                بناء مواقع ويب حديثة وسريعة متوافقة مع كافة الشاشات بأحدث أطر العمل.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 06 -->
+                    <article class="portfolio-card card reveal" data-category="web">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&auto=format&fit=crop&q=80" alt="المتاجر الإلكترونية" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="متجر إلكتروني" data-en="E-Commerce">06</span>
+                            <h3 data-ar="تصميم المتاجر الإلكترونية" data-en="E-Commerce Stores">تصميم المتاجر الإلكترونية</h3>
+                            <p data-ar="إنشاء متاجر متكاملة مع ربط بوابات الدفع الإلكتروني ووسائل الشحن." data-en="Building e-commerce platforms with integrated payment gateways and shipping solutions.">
+                                إنشاء متاجر متكاملة مع ربط بوابات الدفع الإلكتروني ووسائل الشحن.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 07 -->
+                    <article class="portfolio-card card reveal" data-category="web">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=80" alt="تهيئة محركات البحث" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="SEO" data-en="SEO">07</span>
+                            <h3 data-ar="تهيئة محركات البحث (SEO)" data-en="Search Engine Optimization">تهيئة محركات البحث (SEO)</h3>
+                            <p data-ar="تحسين أداء موقعك للتصدر في نتائج البحث الأولى في جوجل وتجميع زيارات مجانية." data-en="Optimizing website structure and content to rank higher on search engines.">
+                                تحسين أداء موقعك للتصدر في نتائج البحث الأولى في جوجل وتجميع زيارات مجانية.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 08 -->
+                    <article class="portfolio-card card reveal" data-category="web">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=80" alt="تطوير الأنظمة" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="أنظمة إدارية" data-en="Dashboard Systems">08</span>
+                            <h3 data-ar="تطوير لوحات التحكم" data-en="Admin Dashboards">تطوير لوحات التحكم</h3>
+                            <p data-ar="بناء لوحات تحكم مخصصة للشركات لمتابعة العملاء والمبيعات والعمليات اليومية." data-en="Custom admin panels and management dashboards for business operations.">
+                                بناء لوحات تحكم مخصصة للشركات لمتابعة العملاء والمبيعات والعمليات اليومية.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 09 -->
+                    <article class="portfolio-card card reveal" data-category="web">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&auto=format&fit=crop&q=80" alt="صفحات الهبوط" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="صفحة هبوط" data-en="Landing Page">09</span>
+                            <h3 data-ar="برمجة صفحات الهبوط" data-en="Landing Pages">برمجة صفحات الهبوط</h3>
+                            <p data-ar="تراخيص وصفحات هبوط سريعة ومصممة خصيصاً لزيادة المبيعات والتحويلات." data-en="High-converting landing pages tailored for specific marketing promotions.">
+                                تراخيص وصفحات هبوط سريعة ومصممة خصيصاً لزيادة المبيعات والتحويلات.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 10 -->
+                    <article class="portfolio-card card reveal" data-category="web">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80" alt="تطوير البرمجيات الخاصة" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="برمجيات مخصصة" data-en="Custom Code">10</span>
+                            <h3 data-ar="حلول البرمجة المخصصة" data-en="Custom Web Solutions">حلول البرمجة المخصصة</h3>
+                            <p data-ar="تطوير أدوات وحلول برمجية معقدة ومخصصة بناءً على متطلبات عملك الفريدة." data-en="Custom web tools and web application development for complex features.">
+                                تطوير أدوات وحلول برمجية معقدة ومخصصة بناءً على متطلبات عملك الفريدة.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 11 -->
+                    <article class="portfolio-card card reveal" data-category="marketing">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80" alt="الاستضافة والحماية" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="سيرفرات وأمان" data-en="Hosting & Security">11</span>
+                            <h3 data-ar="الاستضافة وحماية المواقع" data-en="Hosting & Security">الاستضافة وحماية المواقع</h3>
+                            <p data-ar="توفير سيرفرات سريعة وآمنة مع شهادات SSL وحلول النسخ الاحتياطي الدوري." data-en="Fast and secure hosting solutions with SSL certificates and automated backups.">
+                                توفير سيرفرات سريعة وآمنة مع شهادات SSL وحلول النسخ الاحتياطي الدوري.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 12 -->
+                    <article class="portfolio-card card reveal" data-category="marketing">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&auto=format&fit=crop&q=80" alt="الدعم الفني والصيانة" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="دعم وصيانة" data-en="Support & Tech">12</span>
+                            <h3 data-ar="الدعم الفني والصيانة" data-en="Technical Maintenance">الدعم الفني والصيانة</h3>
+                            <p data-ar="متابعة وتحديث فني مستمر للمواقع وحل الأخطاء لضمان استقرار العمل." data-en="Continuous maintenance and technical support to ensure system uptime.">
+                                متابعة وتحديث فني مستمر للمواقع وحل الأخطاء لضمان استقرار العمل.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 13 -->
+                    <article class="portfolio-card card reveal" data-category="marketing">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=600&auto=format&fit=crop&q=80" alt="الاستشارات التقنية" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="استشارات" data-en="Consultation">13</span>
+                            <h3 data-ar="الاستشارات التقنية" data-en="Tech Consultation">الاستشارات التقنية</h3>
+                            <p data-ar="تقديم دراسات واستشارات متخصصة للمشاريع لاختيار أفضل التقنيات وتخطيطها." data-en="Providing technical feasibility studies and consultancy for digital growth.">
+                                تقديم دراسات واستشارات متخصصة للمشاريع لاختيار أفضل التقنيات وتخطيطها.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 14 -->
+                    <article class="portfolio-card card reveal" data-category="marketing">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&auto=format&fit=crop&q=80" alt="إدارة المحتوى الرقمي" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="إدارة محتوى" data-en="Content Mgmt">14</span>
+                            <h3 data-ar="إدارة وصناعة المحتوى" data-en="Content Management">إدارة وصناعة المحتوى</h3>
+                            <p data-ar="صناعة محتوى تسويقي إبداعي وتنظيمه لنشر هويتكم واستهداف جمهوركم." data-en="Creation and strategic management of engaging digital marketing content.">
+                                صناعة محتوى تسويقي إبداعي وتنظيمه لنشر هويتكم واستهداف جمهوركم.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 15 -->
+                    <article class="portfolio-card card reveal" data-category="design">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=600&auto=format&fit=crop&q=80" alt="تصميم المطبوعات" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="مطبوعات" data-en="Print Design">15</span>
+                            <h3 data-ar="تصميم المطبوعات التجارية" data-en="Print & Stationery">تصميم المطبوعات التجارية</h3>
+                            <p data-ar="تصميم الكروت والشخصيات والكتالوجات البروفايل بأعلى جودة جاهزة للطباعة." data-en="Professional design for brochures, business cards, and company profiles.">
+                                تصميم الكروت والشخصيات والكتالوجات البروفايل بأعلى جودة جاهزة للطباعة.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 16 -->
+                    <article class="portfolio-card card reveal" data-category="marketing">
+                        <div class="portfolio-image">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80" alt="تحليل وبناء الاستراتيجيات" loading="lazy">
+                            <div class="image-overlay"><span>✦</span></div>
+                        </div>
+                        <div class="portfolio-content project-body">
+                            <span class="project-number badge" data-ar="تحليل أداء" data-en="Analytics">16</span>
+                            <h3 data-ar="تحليل وتحسين الأداء" data-en="Performance Analytics">تحليل وتحسين الأداء</h3>
+                            <p data-ar="متابعة وتقييم إحصائيات المواقع للتحسين المستمر ومضاعفة النتائج." data-en="Tracking website performance and analytics to double conversion rates.">
+                                متابعة وتقييم إحصائيات المواقع للتحسين المستمر ومضاعفة النتائج.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- Portfolio Notice -->
+                <div class="notice reveal" style="margin-top: 30px;" data-ar="ملاحظة: بعض العناصر في المعرض نماذج تجريبية توضح قدراتنا البرمجية والتصميمية. التفاصيل النهائية تعتمد على نطاق العمل الاتفاقي." data-en="Note: Some portfolio items are prototypes showcasing technical capability. Final project details depend on the agreed scope.">
+                    ملاحظة: بعض العناصر في المعرض نماذج تجريبية توضح قدراتنا البرمجية والتصميمية. التفاصيل النهائية تعتمد على نطاق العمل الاتفاقي.
+                </div>
+
+            </div>
+        </section>
+
+</div>
+<div class="cta"><div><h2 data-ar="عندك فكرة؟" data-en="Have an idea?">عندك فكرة؟</h2><p data-ar="ابعت التفاصيل ونحدد معًا أفضل طريقة لتنفيذها." data-en="Send the details and we’ll define the right way to build it.">ابعت التفاصيل ونحدد معًا أفضل طريقة لتنفيذها.</p></div><a class="btn btn-primary" href="contact.html" data-ar="اطلب مشروعك" data-en="Request your project">اطلب مشروعك</a></div>
+</div></section></main><footer class="footer"><div class="container">
+<div class="footer-grid">
+<div><a class="logo" href="index.html" aria-label="Al-Genius"><img src="logo.png" alt="Al-Genius" class="site-logo"></a><p data-ar="نحوّل الأفكار إلى تجارب رقمية واضحة، سريعة، ومصممة حول احتياجك." data-en="We turn ideas into clear, fast digital experiences built around your needs.">نحوّل الأفكار إلى تجارب رقمية واضحة، سريعة، ومصممة حول احتياجك.</p></div>
+<div><div class="footer-title" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</div><p><a href="services.html" data-ar="الخدمات" data-en="Services">الخدمات</a></p><p><a href="portfolio.html" data-ar="الأعمال" data-en="Portfolio">الأعمال</a></p><p><a href="prices.html" data-ar="الأسعار" data-en="Pricing">الأسعار</a></p></div>
+<div><div class="footer-title" data-ar="تواصل" data-en="Contact">تواصل</div><p><a href="https://wa.me/201012747531" target="_blank" rel="noopener">WhatsApp</a></p><p><a href="mailto:yousefahmedsamir089@gmail.com">yousefahmedsamir089@gmail.com</a></p></div>
+</div>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a class="logo" href="index.html" aria-label="Al-Genius"><img src="logo.png" alt="Al-Genius" class="site-logo"></a>
+                    <p data-ar="نحوّل الأفكار إلى تجارب رقمية واضحة، سريعة، ومصممة حول احتياجك." data-en="We turn ideas into clear, fast digital experiences built around your needs.">نحوّل الأفكار إلى تجارب رقمية واضحة، سريعة، ومصممة حول احتياجك.</p>
+                </div>
+                <div>
+                    <div class="footer-title" data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</div>
+                    <p><a href="services.html" data-ar="الخدمات" data-en="Services">الخدمات</a></p>
+                    <p><a href="portfolio.html" data-ar="الأعمال" data-en="Portfolio">الأعمال</a></p>
+                    <p><a href="prices.html" data-ar="الأسعار" data-en="Pricing">الأسعار</a></p>
+                </div>
+                <div>
+                    <div class="footer-title" data-ar="تواصل" data-en="Contact">تواصل</div>
+                    <p><a href="https://wa.me/201012747531" target="_blank" rel="noopener">WhatsApp</a></p>
+                    <p><a href="mailto:yousefahmedsamir089@gmail.com">yousefahmedsamir089@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                <span data-ar="© 2026 Al-Genius — جميع الحقوق محفوظة." data-en="© 2026 Al-Genius — All rights reserved.">© 2026 Al-Genius — جميع الحقوق محفوظة.</span>
+                <span data-ar="صُنع بشغف للتقنية والإبداع." data-en="Built with passion for technology and creativity.">صُنع بشغف للتقنية والإبداع.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP & BACK TO TOP BUTTONS -->
+    <a class="whatsapp" href="https://wa.me/201012747531" target="_blank" rel="noopener" aria-label="WhatsApp">◉</a>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <!-- SCRIPTS -->
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        /* Mobile Menu Toggle */
+        const menuToggle = document.getElementById("menuToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener("click", () => {
+                mobileMenu.classList.toggle("open");
+            });
+        }
+
+        /* Portfolio Filtering Script */
+        const filterBtns = document.querySelectorAll(".filter button");
+        const portfolioCards = document.querySelectorAll("#portfolioGrid .portfolio-card");
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const filterValue = btn.getAttribute("data-filter");
+
+                portfolioCards.forEach(card => {
+                    if (filterValue === "all" || card.getAttribute("data-category") === filterValue) {
+                        card.style.display = "flex";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            });
+        });
+
+        /* Reveal Animation Observer */
+        const revealElements = document.querySelectorAll(".reveal");
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        /* Mouse Glow Effect */
+        const glow = document.querySelector(".cursor-glow");
+        document.addEventListener("mousemove", (e) => {
+            if (!glow) return;
+            glow.style.left = e.clientX + "px";
+            glow.style.top = e.clientY + "px";
+        });
+
+        /* 3D Card Hover Effect */
+        portfolioCards.forEach(card => {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateY = ((x / rect.width) - 0.5) * 6;
+                const rotateX = ((y / rect.height) - 0.5) * -6;
+
+                card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "";
+            });
+        });
+    </script>
+</body>
+
+</html>
